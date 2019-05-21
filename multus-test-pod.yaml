@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multus-ci
+  namespace: default
+spec:
+  containers:
+  - image: quay.io/s1061123/multus-ci:latest
+    imagePullPolicy: Always
+    name: multus-ci-container
+    securityContext:
+      privileged: true
+      procMount: Default
+      runAsUser: 0
+    stdin: true
+    stdinOnce: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    tty: true
+    volumeMounts:
+    - mountPath: /host
+      name: host
+  hostNetwork: true
+  hostPID: true
+  restartPolicy: Never
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host
