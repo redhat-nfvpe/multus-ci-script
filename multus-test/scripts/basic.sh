@@ -11,7 +11,7 @@
 }
 
 @test "Check multus config file exists" {
-    [ -d /host/etc/cni/net.d -a -f /host/etc/cni/net.d/70-multus.confo ]
+    [ -d /host/etc/cni/net.d -a -f /host/etc/cni/net.d/70-multus.conf ]
 }
 
 @test "Check multus.kubeconfig file exists" {
