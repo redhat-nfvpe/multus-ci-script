@@ -13,12 +13,12 @@ if [ $# -eq 1 ]; then
 	esac
 fi
 
-if [ "$?" -eq 1 ]; then
-	echo "FAILED" >> /dev/termination-log
-	exit 1
-else
+if [ "$?" -eq 0 ]; then
 	echo "SUCCEED" >> /dev/termination-log
 	exit 0
+else
+	echo "FAILED" >> /dev/termination-log
+	exit 1
 fi
 
 #sleep infinity
