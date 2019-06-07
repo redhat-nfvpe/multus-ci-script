@@ -1,0 +1,7 @@
+script:
+  - docker login -u="${RH_REGISTRY_USER}" -p="${RH_REGISTRY_PASS}" registry.redhat.io
+  - docker build -t s1061123/multus-ci-scripts .
+
+deploy:
+  - docker login -u="${DOCKER_REGISTRY_USER}" -p="${DOCKER_REGISTRY_PASS}"
+  - docker push s1061123/multus-ci-scripts
