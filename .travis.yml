@@ -1,7 +1,13 @@
-script:
+language: minimal
+
+before_install:
   - docker login -u="${RH_REGISTRY_USER}" -p="${RH_REGISTRY_PASS}" registry.redhat.io
+  - docker login -u="${DOCKER_REGISTRY_USER}" -p="${DOCKER_REGISTRY_PASS}"
+
+script:
   - docker build -t s1061123/multus-ci-scripts .
 
 deploy:
-  - docker login -u="${DOCKER_REGISTRY_USER}" -p="${DOCKER_REGISTRY_PASS}"
-  - docker push s1061123/multus-ci-scripts
+  - provider: script
+    script: >
+      docker push s1061123/multus-ci-scripts
